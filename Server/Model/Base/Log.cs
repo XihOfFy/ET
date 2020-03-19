@@ -9,19 +9,22 @@ namespace ETModel
 		public static void Trace(string message)
 		{
 			globalLog.Trace(message);
+            Console.WriteLine("Trace:" + message);
 		}
 
 		public static void Warning(string message)
 		{
 			globalLog.Warning(message);
-		}
+            Console.WriteLine("Warning:" + message);
 
-		public static void Info(string message)
+        }
+
+        public static void Info(string message)
 		{
 			globalLog.Info(message);
-		}
+        }
 
-		public static void Debug(string message)
+        public static void Debug(string message)
 		{
 			globalLog.Debug(message);
 		}

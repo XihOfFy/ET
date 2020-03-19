@@ -21,6 +21,7 @@ namespace ETHotfix
 				Session serverSession = netInnerComponent.Get(innerConfig.IPEndPoint);
 				await serverSession.Call(new M2A_Reload());
 			}
+            Log.Warning("aaaaaaaaa");
 			reply();
 		}
 	}
