@@ -4,6 +4,7 @@
 	{
 		public string AssetBundleServerUrl;
 		public string Address;
+		public int Version;
 
 		public string GetUrl()
 		{

@@ -30,6 +30,7 @@ namespace ETModel
 				catch (Exception e)
 				{
 					Log.Error(e);
+					Game.Scene.RemoveComponent<BundleDownloaderComponent>();
 				}
 
 			}

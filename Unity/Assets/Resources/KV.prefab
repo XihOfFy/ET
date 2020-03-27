@@ -49,3 +49,6 @@ MonoBehaviour:
   - key: UILoading
     gameObject: {fileID: 1386170326414932, guid: 0deea0b3b021a714d8c54816d4ee5fbe,
       type: 3}
+  - key: UICheckUpdate
+    gameObject: {fileID: 1386170326414932, guid: 959aafef7d2838746bf7669af46433e0,
+      type: 3}

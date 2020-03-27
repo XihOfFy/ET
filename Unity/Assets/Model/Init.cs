@@ -30,28 +30,7 @@ namespace ETModel
 				Game.Scene.AddComponent<OpcodeTypeComponent>();
 				Game.Scene.AddComponent<MessageDispatcherComponent>();
 
-
-				Session session = Game.Scene.GetComponent<NetOuterComponent>().Create(GlobalConfigComponent.Instance.GlobalProto.Address);
-				//await session.Call(); 依据返回消息 Game.EventSystem.Run(EventIdType.TestHotfixSubscribMonoEvent, "ToLoad/Notice"); 如果要更新则跳过加载资源到hotfixUI去显示要下载最新版
-				session.Dispose();
-
-				// 下载ab包
-				await BundleHelper.DownloadBundle();
-
-				Game.Hotfix.LoadHotfixAssembly();
-
-				// 加载配置 中间与上下这3行同生共死可以不用如果现在不用，因为热更会再次加载
-				//AddComponent<ConfigComponent> 将所有M的配置加载，需要先load相关资源，不然加载没找到文件会报错
-				//目前"config.unity3d" 的资源在M没有用到，因为M没有类继承资源配置，所以ConfigComponent内容为空
-				Game.Scene.GetComponent<ResourcesComponent>().LoadBundle("config.unity3d");
-				Game.Scene.AddComponent<ConfigComponent>();
-				Game.Scene.GetComponent<ResourcesComponent>().UnloadBundle("config.unity3d");
-				//Game.Scene.AddComponent<OpcodeTypeComponent>();
-				//Game.Scene.AddComponent<MessageDispatcherComponent>();
-				
-				Game.Hotfix.GotoHotfix();
-
-				Game.EventSystem.Run(EventIdType.TestHotfixSubscribMonoEvent, "TestHotfixSubscribMonoEvent");
+				Game.EventSystem.Run(EventIdType.BeginCheckUpdate);
 			}
 			catch (Exception e)
 			{

@@ -33,6 +33,7 @@ namespace ETEditor
         {
             this.globalProto.AssetBundleServerUrl = EditorGUILayout.TextField("资源路径:", this.globalProto.AssetBundleServerUrl);
             this.globalProto.Address = EditorGUILayout.TextField("服务器地址:", this.globalProto.Address);
+            this.globalProto.Version = EditorGUILayout.IntField("客户端版本:", this.globalProto.Version);
 
             if (GUILayout.Button("保存"))
             {
