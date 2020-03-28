@@ -1,6 +1,7 @@
 {
     "name": "Unity.Model",
     "references": [
+        "Cinemachine",
         "Unity.ThirdParty"
     ],
     "optionalUnityReferences": [],

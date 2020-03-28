@@ -505,6 +505,13 @@
     <Compile Include="Assets\Model\Other\MonoStaticMethod.cs" />
     <Compile Include="Assets\Model\Other\MotionType.cs" />
     <Compile Include="Assets\Model\Other\ReferenceCollector.cs" />
+    <Compile Include="Assets\Model\XihModule\Joysticks\DynamicJoystick.cs" />
+    <Compile Include="Assets\Model\XihModule\Joysticks\FixedJoystick.cs" />
+    <Compile Include="Assets\Model\XihModule\Joysticks\FloatingJoystick.cs" />
+    <Compile Include="Assets\Model\XihModule\Joysticks\Joystick.cs" />
+    <Compile Include="Assets\Model\XihModule\Joysticks\VariableJoystick.cs" />
+    <Compile Include="Assets\Model\XihModule\PlayerControl.cs" />
+    <Compile Include="Assets\Model\XihModule\SettingCtrPos.cs" />
     <Compile Include="Assets\Model\XihModule\UI\CheckoutUpdate\EventBenginCheckUpdate.cs" />
     <Compile Include="Assets\Model\XihModule\UI\CheckoutUpdate\EventEndCheckUpdate.cs" />
     <Compile Include="Assets\Model\XihModule\UI\CheckoutUpdate\UICheckUpdateComponent.cs" />
@@ -515,6 +522,9 @@
     <None Include="Assets\Model\Module\Pathfinding\AstarPathfindingProject\Readme.txt" />
     <None Include="Assets\Model\Unity.Model.asmdef" />
     <None Include="Assets\Model\Module\Pathfinding\AstarPathfindingProject\link.xml" />
+    <Reference Include="Cinemachine">
+      <HintPath>D:/Casual/ETXih/Unity/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Program/Unitys/Unity2018311f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
