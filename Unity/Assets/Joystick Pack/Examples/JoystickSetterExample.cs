@@ -31,7 +31,7 @@ public class JoystickSetterExample : MonoBehaviour
 
     public void AxisChanged(int index)
     {
-        switch (index)
+        /*switch (index)
         {
             case 0:
                 variableJoystick.AxisOptions = AxisOptions.Both;
@@ -47,17 +47,21 @@ public class JoystickSetterExample : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
     }
 
     public void SnapX(bool value)
     {
-        variableJoystick.SnapX = value;
+        //variableJoystick.SnapX = value;
     }
 
     public void SnapY(bool value)
     {
-        variableJoystick.SnapY = value;
+        //variableJoystick.SnapY = value;
+    }
+    public void SetFourDir(bool value) {
+        PlayerPrefs.SetInt("IsFourDir", value?1:0);
+        variableJoystick.IsFourDir = value;
     }
 
     private void Update()

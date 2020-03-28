@@ -5,6 +5,7 @@ namespace ETModel
 {
     public class SettingCtrPos : MonoBehaviour, IDragHandler
     {
+        public VariableJoystick variableJoystick;
         public RectTransform joyStick;
         private void Awake()
         {
@@ -18,14 +19,28 @@ namespace ETModel
             PlayerPrefs.SetFloat("JoyX", joyStick.position.x);
             PlayerPrefs.SetFloat("JoyY", joyStick.position.y);
         }
-        /* private void FixedUpdate()
-         {
-             if (Input.GetMouseButtonDown(0)) {
-                 if(Input.mousePosition.x< halfscreenW&& Input.mousePosition.y < halfscreenH)
-                     joyStick.anchoredPosition = Input.mousePosition;
-             }
-         }*/
-
+        public void SetFourDir(bool value)
+        {
+            PlayerPrefs.SetInt("IsFourDir", value ? 1 : 0);
+            variableJoystick.IsFourDir = value;
+        }
+        public void ModeChanged(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    variableJoystick.SetMode(JoystickType.Fixed);
+                    break;
+                case 1:
+                    variableJoystick.SetMode(JoystickType.Floating);
+                    break;
+                case 2:
+                    variableJoystick.SetMode(JoystickType.Dynamic);
+                    break;
+                default:
+                    break;
+            }
+        }
         public void OnDrag(PointerEventData eventData)
         {
             if (RectTransformUtility.ScreenPointToWorldPointInRectangle(joyStick, eventData.position, eventData.pressEventCamera, out Vector3 pos))

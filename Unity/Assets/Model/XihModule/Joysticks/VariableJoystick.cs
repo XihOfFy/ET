@@ -18,6 +18,8 @@ namespace ETModel
             this.joystickType = joystickType;
             if (joystickType == JoystickType.Fixed)
             {
+                gameObject.GetComponent<RectTransform>().position = new Vector3(PlayerPrefs.GetFloat("JoyX", 0), PlayerPrefs.GetFloat("JoyY", 0));                ;
+                IsFourDir = PlayerPrefs.GetInt("IsFourDir", 0) == 1;
                 background.anchoredPosition = fixedPosition;
                 background.gameObject.SetActive(true);
             }
