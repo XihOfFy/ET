@@ -3,6 +3,7 @@ using System.Net;
 using ETModel;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace ETHotfix
 {
@@ -30,7 +31,8 @@ namespace ETHotfix
 
 		public void OnLogin()
 		{
-			LoginHelper.OnLoginAsync(this.account.GetComponent<InputField>().text).Coroutine();
+            Game.EventSystem.Run(EventIdType.ShowTip, "tips"+Random.Range(1000,9999));
+            //LoginHelper.OnLoginAsync(this.account.GetComponent<InputField>().text).Coroutine();
 		}
 	}
 }
