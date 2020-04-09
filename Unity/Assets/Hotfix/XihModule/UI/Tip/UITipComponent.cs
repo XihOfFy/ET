@@ -15,10 +15,12 @@ namespace ETHotfix {
     public class UITipComponent : Component
     {
         Text tipInfo;
+        RectTransform bg;
         public void Awake(string info)
         {
             ReferenceCollector rc = this.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
             this.tipInfo = rc.Get<GameObject>("Tips").GetComponent<Text>();
+            this.bg = rc.Get<GameObject>("Bg").GetComponent<RectTransform>();
             tipInfo.text = info;
             StartAsync().Coroutine();
         }
@@ -26,14 +28,14 @@ namespace ETHotfix {
         {
             TimerComponent timerComponent = ETModel.Game.Scene.GetComponent<TimerComponent>();
             int time = 0;
-            float x = tipInfo.rectTransform.localPosition.x;
-            float z = tipInfo.rectTransform.localPosition.z;
-            float py = tipInfo.rectTransform.localPosition.y;
+            float x = bg.localPosition.x;
+            float z = bg.localPosition.z;
+            float py = bg.localPosition.y;
             float delta = py / 32.0f;
             while (time < 2000){
                 await timerComponent.WaitAsync(10);
                 time += 10;
-                tipInfo.rectTransform.localPosition= new Vector3(x, py,z);
+                bg.localPosition= new Vector3(x, py,z);
                 py = py - delta;
             }
             Game.EventSystem.Run(EventIdType.DestoryTip,this.Parent);
