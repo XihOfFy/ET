@@ -31,8 +31,7 @@ namespace ETHotfix
 
 		public void OnLogin()
 		{
-            Game.EventSystem.Run(EventIdType.ShowTip, "tips"+Random.Range(1000,9999));
-            //LoginHelper.OnLoginAsync(this.account.GetComponent<InputField>().text).Coroutine();
+            LoginHelper.OnLoginAsync(this.account.GetComponent<InputField>().text).Coroutine();
 		}
 	}
 }
