@@ -28,15 +28,15 @@ namespace ETHotfix {
         {
             TimerComponent timerComponent = ETModel.Game.Scene.GetComponent<TimerComponent>();
             int time = 0;
-            float x = bg.localPosition.x;
-            float z = bg.localPosition.z;
-            float py = bg.localPosition.y;
-            float delta = py / 32.0f;
-            while (time < 2000){
+            float x = bg.position.x;
+            float z = bg.position.z;
+            float py = bg.position.y;
+            float delta = py / 128.0f;
+            while (time < 1000){
                 await timerComponent.WaitAsync(10);
                 time += 10;
-                bg.localPosition= new Vector3(x, py,z);
-                py = py - delta;
+                bg.position = new Vector3(x, py,z);
+                py = py + delta;
             }
             Game.EventSystem.Run(EventIdType.DestoryTip,this.Parent);
         }
