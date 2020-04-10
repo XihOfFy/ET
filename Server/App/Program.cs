@@ -141,8 +141,11 @@ namespace App
 					default:
 						throw new Exception($"命令行参数没有设置正确的AppType: {startConfig.AppType}");
 				}
-				
-				while (true)
+                //添加数据库服务器
+                Game.Scene.AddComponent<DBComponent>();
+                Game.Scene.AddComponent<DBProxyComponent>();
+
+                while (true)
 				{
 					try
 					{
