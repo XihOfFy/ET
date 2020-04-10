@@ -5,26 +5,23 @@ using ETModel;
 
 namespace ETHotfix {
     [ObjectSystem]
-    public class UITipComponentAwakeSystem : AwakeSystem<UITipComponent,bool,string,int>
+    public class UITipComponentAwakeSystem : AwakeSystem<UITipComponent,string>
     {
-        public override void Awake(UITipComponent self, bool a, string b, int c)
+        public override void Awake(UITipComponent self, string info)
         {
-            self.Awake(a,b,c);
+            self.Awake(info);
         }
     }
     public class UITipComponent : Component
     {
         Text tipInfo;
         RectTransform bg;
-        public void Awake(bool isCodeTranslate, string info, int code)
+        public void Awake(string info)
         {
             ReferenceCollector rc = this.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
             this.tipInfo = rc.Get<GameObject>("Tips").GetComponent<Text>();
             this.bg = rc.Get<GameObject>("Bg").GetComponent<RectTransform>();
-            if(isCodeTranslate)
-                tipInfo.text = CodeExplain.GetExplain(code);
-            else
-                tipInfo.text = info;
+            tipInfo.text = info;
             StartAsync().Coroutine();
         }
         public async ETVoid StartAsync()
@@ -38,7 +35,6 @@ namespace ETHotfix {
             while (time < 1000){
                 await timerComponent.WaitAsync(10);
                 time += 10;
-                if (null == bg) break;
                 bg.position = new Vector3(x, py,z);
                 py = py + delta;
             }

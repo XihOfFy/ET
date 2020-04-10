@@ -7,7 +7,7 @@ namespace ETHotfix
 {
     public static class UITipFactory
     {
-        public static UI Create(bool isCodeTranslate, string info, int code)
+        public static UI Create(string info)
         {
             try
             {
@@ -18,7 +18,7 @@ namespace ETHotfix
 
                 UI ui = ComponentFactory.Create<UI, string, GameObject>(UIType.UITip, gameObject, false);
 
-                ui.AddComponent<UITipComponent, bool, string, int>(isCodeTranslate,info,code);
+                ui.AddComponent<UITipComponent, string>(info);
                 return ui;
             }
             catch (Exception e)
