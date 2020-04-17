@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ETHotfix
 {
-    public class UserInfo: ComponentWithId
+    public sealed class UserInfo: ComponentWithId
     {
         public string Account { get; set; }
         public string Password { get; set; }

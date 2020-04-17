@@ -20,6 +20,7 @@ namespace ETHotfix
 	{
 		private GameObject account;
 		private GameObject loginBtn;
+		private GameObject password;
 
 		public void Awake()
 		{
@@ -27,11 +28,12 @@ namespace ETHotfix
 			loginBtn = rc.Get<GameObject>("LoginBtn");
 			loginBtn.GetComponent<Button>().onClick.Add(OnLogin);
 			this.account = rc.Get<GameObject>("Account");
+			this.password = rc.Get<GameObject>("Password");
 		}
 
 		public void OnLogin()
 		{
-            LoginHelper.OnLoginAsync(this.account.GetComponent<InputField>().text).Coroutine();
+            LoginHelper.OnLoginAsync(this.account.GetComponent<InputField>().text,this.password.GetComponent<InputField>().text).Coroutine();
 		}
 	}
 }

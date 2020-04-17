@@ -90,10 +90,7 @@ namespace App
 						
 						// 发送location actor消息
 						Game.Scene.AddComponent<ActorLocationSenderComponent>();
-						
-						//Game.Scene.AddComponent<DBComponent>();
-						//Game.Scene.AddComponent<DBProxyComponent>();
-						
+	
 						// location server需要的组件
 						Game.Scene.AddComponent<LocationComponent>();
 						
@@ -109,9 +106,10 @@ namespace App
 						
 						// 外网消息组件
 						Game.Scene.AddComponent<NetOuterComponent, string>(outerConfig.Address);
-						
-						// manager server组件，用来管理其它进程使用
-						Game.Scene.AddComponent<AppManagerComponent>();
+                        Game.Scene.AddComponent<DBComponent>();
+                        Game.Scene.AddComponent<DBProxyComponent>();
+                        // manager server组件，用来管理其它进程使用
+                        Game.Scene.AddComponent<AppManagerComponent>();
 						Game.Scene.AddComponent<RealmGateAddressComponent>();
 						Game.Scene.AddComponent<GateSessionKeyComponent>();
 						
@@ -141,9 +139,7 @@ namespace App
 					default:
 						throw new Exception($"命令行参数没有设置正确的AppType: {startConfig.AppType}");
 				}
-                //添加数据库服务器
-                Game.Scene.AddComponent<DBComponent>();
-                Game.Scene.AddComponent<DBProxyComponent>();
+                
 
                 while (true)
 				{

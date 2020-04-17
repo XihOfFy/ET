@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using ETModel;
 
@@ -9,16 +10,26 @@ namespace ETHotfix
 	{
 		protected override async ETTask Run(Session session, C2R_Login request, R2C_Login response, Action reply)
 		{
-            //if (message.Account != "abcdef" || message.Password != "111111")
-            //{
-            //	response.Error = ErrorCode.ERR_AccountOrPasswordError;
-            //	reply(response);
-            //	return;
-            //}
-
-            // await DBProxyComponentEx.Query<UserInfo>(Game.Scene.GetComponent<DBProxyComponent>(),(user)=>user.Account== request.Account&& user.Password==request.Password);
-            await Game.Scene.GetComponent<DBProxyComponent>().Save(new UserInfo() { Account = request.Account,Password="111"});
-            await Game.Scene.GetComponent<DBProxyComponent>().Query<UserInfo>((user) => user.Account == request.Account && user.Password == request.Password);
+            if (string.IsNullOrEmpty(request.Account) || string.IsNullOrEmpty(request.Password)) {
+                response.Error = ErrorCode.ERRORCODE_3;
+                reply();
+                return;
+            }
+            List<ComponentWithId> infos = await Game.Scene.GetComponent<DBProxyComponent>().Query<UserInfo>((user) => user.Account == request.Account && user.Password == request.Password);
+            if (infos.Count <= 0)
+            {
+                response.Error = ErrorCode.CODE0; //0 新账号 1 登录成功 >1 查询到多个匹配
+                await Game.Scene.GetComponent<DBProxyComponent>().Save(new UserInfo() { Account = request.Account, Password = request.Password });
+            }
+            else if (infos.Count == 1) {
+                response.Error = ErrorCode.CODE1; //0 新账号 1 登录成功 >1 查询到多个匹配
+            }
+            else
+            {
+                response.Error = ErrorCode.ERRORCODE_2; //0 新账号 1 登录成功 -2 查询到多个匹配
+                reply();
+                return;
+            }
             // 随机分配一个Gate
             StartConfig config = Game.Scene.GetComponent<RealmGateAddressComponent>().GetAddress();
 			//Log.Debug($"gate address: {MongoHelper.ToJson(config)}");
