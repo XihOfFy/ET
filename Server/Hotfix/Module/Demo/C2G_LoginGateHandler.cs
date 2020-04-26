@@ -9,7 +9,7 @@ namespace ETHotfix
 		protected override async ETTask Run(Session session, C2G_LoginGate request, G2C_LoginGate response, Action reply)
 		{
 			string account = Game.Scene.GetComponent<GateSessionKeyComponent>().Get(request.Key);
-			if (account == null)
+			if (string.IsNullOrEmpty(account))
 			{
 				response.Error = ErrorCode.ERR_ConnectGateKeyError;
 				response.Message = "Gate key验证失败!";

@@ -15,6 +15,8 @@ namespace ETHotfix
                 reply();
                 return;
             }
+            response.Error = ErrorCode.CODE1;
+#if DB
             List<ComponentWithId> infos = await Game.Scene.GetComponent<DBProxyComponent>().Query<UserInfo>((user) => user.Account == request.Account && user.Password == request.Password);
             if (infos.Count <= 0)
             {
@@ -30,6 +32,7 @@ namespace ETHotfix
                 reply();
                 return;
             }
+#endif
             // 随机分配一个Gate
             StartConfig config = Game.Scene.GetComponent<RealmGateAddressComponent>().GetAddress();
 			//Log.Debug($"gate address: {MongoHelper.ToJson(config)}");
