@@ -16,6 +16,8 @@ namespace ETHotfix
 				reply();
 				return;
 			}
+			response.Error = ErrorCode.CODE0;
+			GateSessionComponent.Instance.AddClientSession(session);
 			Player player = ComponentFactory.Create<Player, string>(account);
 			Game.Scene.GetComponent<PlayerComponent>().Add(player);
 			session.AddComponent<SessionPlayerComponent>().Player = player;
@@ -23,8 +25,8 @@ namespace ETHotfix
 
 			response.PlayerId = player.Id;
 			reply();
-
-			session.Send(new G2C_TestHotfixMessage() { Info = "recv hotfix message success" });
+			ChatHelper.SendMsg(session.Id.ToString(),$"let us chat!");
+			//session.Send(new G2C_TestHotfixMessage() { Info = "recv hotfix message success" });
 			await ETTask.CompletedTask;
 		}
 	}

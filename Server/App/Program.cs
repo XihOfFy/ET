@@ -43,7 +43,9 @@ namespace App
 				OuterConfig outerConfig = startConfig.GetComponent<OuterConfig>();
 				InnerConfig innerConfig = startConfig.GetComponent<InnerConfig>();
 				ClientConfig clientConfig = startConfig.GetComponent<ClientConfig>();
-				
+
+				Game.Scene.AddComponent<GateSessionComponent>();
+
 				switch (startConfig.AppType)
 				{
 					case AppType.Manager:

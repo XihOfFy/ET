@@ -43,15 +43,15 @@ namespace ETHotfix
 				return objectPool;
 			}
 		}
+		public static User MyUser {get;set;}
 
 		public static void Close()
 		{
 			scene?.Dispose();
 			scene = null;
-			
 			objectPool?.Dispose();
 			objectPool = null;
-			
+			MyUser = null;
 			eventSystem = null;
 		}
 	}

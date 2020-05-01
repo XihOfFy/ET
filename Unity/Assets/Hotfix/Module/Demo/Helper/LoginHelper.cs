@@ -19,7 +19,6 @@ namespace ETHotfix
                 Session realmSession = ComponentFactory.Create<Session, ETModel.Session>(session);
                 R2C_Login r2CLogin = (R2C_Login) await realmSession.Call(new C2R_Login() { Account = account, Password = password });
                 realmSession.Dispose();
-                Game.EventSystem.Run(EventIdType.ShowTip,CodeExplain.GetExplain(r2CLogin.Error));
                 switch (r2CLogin.Error) {
                     case ErrorCode.CODE0:
                     case ErrorCode.CODE1:
@@ -29,15 +28,24 @@ namespace ETHotfix
                         // 创建一个ETHotfix层的Session, 并且保存到ETHotfix.SessionComponent中
                         Game.Scene.AddComponent<SessionComponent>().Session = ComponentFactory.Create<Session, ETModel.Session>(gateSession);
                         G2C_LoginGate g2CLoginGate = (G2C_LoginGate)await SessionComponent.Instance.Session.Call(new C2G_LoginGate() { Key = r2CLogin.Key });
-                        // 创建Player
-                        Player player = ETModel.ComponentFactory.CreateWithId<Player>(g2CLoginGate.PlayerId);
-                        PlayerComponent playerComponent = ETModel.Game.Scene.GetComponent<PlayerComponent>();
-                        playerComponent.MyPlayer = player;
-                        Game.EventSystem.Run(EventIdType.LoginFinish);
-                        // 测试消息有成员是class类型
-                        G2C_PlayerInfo g2CPlayerInfo = (G2C_PlayerInfo)await SessionComponent.Instance.Session.Call(new C2G_PlayerInfo());
+                        switch (g2CLoginGate.Error) {
+                            case ErrorCode.CODE0:
+                                Game.EventSystem.Run(EventIdType.ShowTip, CodeExplain.GetExplain(r2CLogin.Error));
+                                //TODO 完成玩家数据拉取
+                                Game.MyUser =new User(g2CLoginGate.PlayerId.ToString());
+                                Log.Debug("TODO 完成玩家数据拉取");
+                                // 创建Player
+                                Player player = ETModel.ComponentFactory.CreateWithId<Player>(g2CLoginGate.PlayerId);
+                                PlayerComponent playerComponent = ETModel.Game.Scene.GetComponent<PlayerComponent>();
+                                playerComponent.MyPlayer = player;
+                                Game.EventSystem.Run(EventIdType.LoginFinish);
+                                // 测试消息有成员是class类型
+                                //G2C_PlayerInfo g2CPlayerInfo = (G2C_PlayerInfo)await SessionComponent.Instance.Session.Call(new C2G_PlayerInfo());
+                                break;
+                            default:
+                                break;
+                        }
                         break;
-                    case -1:
                     default:break;
                 }
             }
