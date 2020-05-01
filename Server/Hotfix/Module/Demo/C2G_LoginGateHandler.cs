@@ -25,7 +25,7 @@ namespace ETHotfix
 
 			response.PlayerId = player.Id;
 			reply();
-			ChatHelper.SendMsg(session.Id.ToString(),$"let us chat!");
+			ChatHelper.SendMsg(session.InstanceId.ToString(),$"let us chat!");
 			//session.Send(new G2C_TestHotfixMessage() { Info = "recv hotfix message success" });
 			await ETTask.CompletedTask;
 		}

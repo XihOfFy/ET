@@ -15,17 +15,17 @@ namespace ETModel
 	{
 		public static GateSessionComponent Instance;
 
-		private Dictionary<long, Session> gateClientSessions=new Dictionary<long, Session>();
+		private HashSet<Session> gateClientSessions=new HashSet<Session>();
 		private int count = 0;
 		private const int MaxCount = 10000;
-		public Dictionary<long, Session> GetAllClientSession() {
+		public HashSet<Session> GetAllClientSession() {
 			if (count > MaxCount) {
-				List<long> ls = new List<long>();
-				foreach (long s in gateClientSessions.Keys)
+				List<Session> ls = new List<Session>();
+				foreach (Session s in gateClientSessions)
 				{
-					if (gateClientSessions[s].IsDisposed) ls.Add(s);
+					if (s.IsDisposed) ls.Add(s);
 				}
-				foreach (long s in ls)
+				foreach (Session s in ls)
 				{
 					gateClientSessions.Remove(s);
 				}
@@ -35,10 +35,8 @@ namespace ETModel
 			return gateClientSessions;
 		}
 		public void AddClientSession(Session s) {
-			if (gateClientSessions.ContainsKey(s.InstanceId))
-				gateClientSessions[s.InstanceId] = s;
-			else
-				gateClientSessions.Add(s.InstanceId, s);
+			if (!gateClientSessions.Contains(s))
+				gateClientSessions.Add(s);
 		}
 
 		public void Awake()
