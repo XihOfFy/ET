@@ -32,7 +32,8 @@ namespace ETHotfix
                             case ErrorCode.CODE0:
                                 Game.EventSystem.Run(EventIdType.ShowTip, CodeExplain.GetExplain(r2CLogin.Error));
                                 //TODO 完成玩家数据拉取
-                                Game.MyUser =new User(g2CLoginGate.PlayerId.ToString());
+                                Game.MyUser =new User(account);
+                                Game.Scene.AddComponent<ChatComponent>().AddChannel("world",new ChatInfos());
                                 Log.Debug("TODO 完成玩家数据拉取");
                                 // 创建Player
                                 Player player = ETModel.ComponentFactory.CreateWithId<Player>(g2CLoginGate.PlayerId);

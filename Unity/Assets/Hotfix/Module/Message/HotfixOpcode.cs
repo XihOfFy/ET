@@ -31,6 +31,9 @@ namespace ETHotfix
 	[Message(HotfixOpcode.G2C_PlayerInfo)]
 	public partial class G2C_PlayerInfo : IResponse {}
 
+	[Message(HotfixOpcode.ChatMsg)]
+	public partial class ChatMsg : IMessage {}
+
 }
 namespace ETHotfix
 {
@@ -46,5 +49,6 @@ namespace ETHotfix
 		 public const ushort PlayerInfo = 10008;
 		 public const ushort C2G_PlayerInfo = 10009;
 		 public const ushort G2C_PlayerInfo = 10010;
+		 public const ushort ChatMsg = 10011;
 	}
 }

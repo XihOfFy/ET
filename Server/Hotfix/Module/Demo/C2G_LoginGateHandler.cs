@@ -17,15 +17,15 @@ namespace ETHotfix
 				return;
 			}
 			response.Error = ErrorCode.CODE0;
-			GateSessionComponent.Instance.AddClientSession(session);
 			Player player = ComponentFactory.Create<Player, string>(account);
 			Game.Scene.GetComponent<PlayerComponent>().Add(player);
 			session.AddComponent<SessionPlayerComponent>().Player = player;
 			session.AddComponent<MailBoxComponent, string>(MailboxType.GateSession);
-
 			response.PlayerId = player.Id;
+			GateSessionComponent.Instance.AddClientSession(session);
+			//GateSessionComponent.Instance.AddSession(session.Id, session);
 			reply();
-			ChatHelper.SendMsg(session.InstanceId.ToString(),$"let us chat!");
+			ChatHelper.SendMsg(new ChatMsg { Name = account, Msg = "欢迎大佬进入游戏" });
 			//session.Send(new G2C_TestHotfixMessage() { Info = "recv hotfix message success" });
 			await ETTask.CompletedTask;
 		}

@@ -128,7 +128,10 @@
     <Compile Include="Assets\Hotfix\Module\UI\UI.cs" />
     <Compile Include="Assets\Hotfix\Module\UI\UIComponent.cs" />
     <Compile Include="Assets\Hotfix\Module\UI\UIType.cs" />
+    <Compile Include="Assets\Hotfix\XihModule\Entity\Chat\ChatComponent.cs" />
+    <Compile Include="Assets\Hotfix\XihModule\Entity\Chat\ChatInfo.cs" />
     <Compile Include="Assets\Hotfix\XihModule\Entity\User\User.cs" />
+    <Compile Include="Assets\Hotfix\XihModule\Handler\ChatMsg_Handler.cs" />
     <Compile Include="Assets\Hotfix\XihModule\UI\Tip\CodeExplain.cs" />
     <Compile Include="Assets\Hotfix\XihModule\UI\Tip\ShowEnd_DestoryTipUI.cs" />
     <Compile Include="Assets\Hotfix\XihModule\UI\Tip\ShowTips_TipUI.cs" />

@@ -652,17 +652,17 @@
       <Project>{E15BADD2-3A26-309A-AB0F-DC5B08044350}</Project>
       <Name>Unity.ThirdParty</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Model.csproj">
-      <Project>{B4BF9894-F5D9-41C4-13E3-3F26F7700E29}</Project>
-      <Name>Unity.Model</Name>
+    <ProjectReference Include="Unity.Editor.csproj">
+      <Project>{CD311104-1830-B119-81B6-5DBEE2467FFB}</Project>
+      <Name>Unity.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Hotfix.csproj">
       <Project>{1066F652-6A89-D1C4-9881-1A19DF7AB80E}</Project>
       <Name>Unity.Hotfix</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Editor.csproj">
-      <Project>{CD311104-1830-B119-81B6-5DBEE2467FFB}</Project>
-      <Name>Unity.Editor</Name>
+    <ProjectReference Include="Unity.Model.csproj">
+      <Project>{B4BF9894-F5D9-41C4-13E3-3F26F7700E29}</Project>
+      <Name>Unity.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

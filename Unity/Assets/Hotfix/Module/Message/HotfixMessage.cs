@@ -894,6 +894,91 @@ namespace ETHotfix {
 
   }
 
+  public partial class ChatMsg : pb::IMessage {
+    private static readonly pb::MessageParser<ChatMsg> _parser = new pb::MessageParser<ChatMsg>(() => (ChatMsg)MessagePool.Instance.Fetch(typeof(ChatMsg)));
+    public static pb::MessageParser<ChatMsg> Parser { get { return _parser; } }
+
+    private int rpcId_;
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    private string name_ = "";
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    private string msg_ = "";
+    public string Msg {
+      get { return msg_; }
+      set {
+        msg_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(218, 5);
+        output.WriteString(Name);
+      }
+      if (Msg.Length != 0) {
+        output.WriteRawTag(226, 5);
+        output.WriteString(Msg);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (Name.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (Msg.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(Msg);
+      }
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      rpcId_ = 0;
+      name_ = "";
+      msg_ = "";
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 730: {
+            Name = input.ReadString();
+            break;
+          }
+          case 738: {
+            Msg = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   #endregion
 
 }
