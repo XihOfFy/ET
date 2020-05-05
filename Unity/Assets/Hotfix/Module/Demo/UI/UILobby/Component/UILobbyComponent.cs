@@ -1,4 +1,5 @@
 ﻿using ETModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -12,15 +13,16 @@ namespace ETHotfix
 		public override void Awake(UILobbyComponent self)
 		{
 			self.Awake();
+
 		}
 	}
 	[ObjectSystem]
-	public class UiLobbyComponentUpdateSystem : UpdateSystem<UILobbyComponent>
+	public class UiLobbyComponentDestorySystem : DestroySystem<UILobbyComponent>
 	{
-		public override void Update(UILobbyComponent self)
-		{
-			self.UpdateChatInfo();
-		}
+        public override void Destroy(UILobbyComponent self)
+        {
+            self.Destory();
+        }
 	}
 
 	public class UILobbyComponent : Component
@@ -29,35 +31,44 @@ namespace ETHotfix
 		private Text chatMsgs;
 		private InputField sendMsg;
 		private Button send;
-		
-		public void Awake()
-		{
-			ReferenceCollector rc = this.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
-			
-			enterMap = rc.Get<GameObject>("EnterMap");
-			enterMap.GetComponent<Button>().onClick.Add(this.EnterMap);
+        public static Action<string, ChatInfos> ChatEvent;
 
+        private void ShowChatMsg(string channel, ChatInfos infos)
+        {
+            switch (channel) {
+                case "world":
+                    List<ChatMsg> info = infos.Chat;
+                    if (info.Count > 50) info.RemoveRange(0, info.Count - 50);
+                    StringBuilder sb = new StringBuilder();
+                    foreach (ChatMsg s in info)
+                    {
+                        sb.AppendLine($"{s.Name}:{s.Msg}");
+                    }
+                    chatMsgs.text = sb.ToString();
+                    break;
+                default:break;
+            }
+        }
+        public void Awake()
+        {
+            ReferenceCollector rc = this.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
+            enterMap = rc.Get<GameObject>("EnterMap");
+			enterMap.GetComponent<Button>().onClick.Add(this.EnterMap);
 			this.chatMsgs = rc.Get<GameObject>("ChatInfo").GetComponent<Text>();
 			this.sendMsg = rc.Get<GameObject>("ChatMsg").GetComponent<InputField>();
 			this.send = rc.Get<GameObject>("Send").GetComponent<Button>();
 			this.send.onClick.Add(SendMsg);
-		}
-		private void SendMsg() {
+            ChatEvent += ShowChatMsg;
+        }
+        public void Destory() {
+            ChatEvent -= ShowChatMsg;
+        }
+        private void SendMsg() {
 			SessionComponent.Instance.Session.Send(new ChatMsg() { Name = Game.MyUser.Name, Msg = sendMsg.text });
 		}
 		private void EnterMap()
 		{
 			MapHelper.EnterMapAsync().Coroutine();
 		}
-		public void UpdateChatInfo() {
-			List<ChatMsg> info = Game.Scene.GetComponent<ChatComponent>().GetChatInfo("world").Chat;
-			if (info.Count > 30) info.RemoveRange(0,info.Count-30);
-			StringBuilder sb = new StringBuilder();
-			foreach (ChatMsg s in info) {
-				sb.AppendLine($"{s.Name}:{s.Msg}");
-			}
-			chatMsgs.text = sb.ToString();
-		}
-
 	}
 }

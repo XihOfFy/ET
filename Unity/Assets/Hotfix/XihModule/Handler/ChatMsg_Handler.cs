@@ -14,7 +14,8 @@ namespace ETHotfix
 		{
 			ChatInfos cs = Game.Scene.GetComponent<ChatComponent>().GetChatInfo("world");
 			cs.Chat.Add(new ChatMsg() { Name= message.Name,Msg= message.Msg});
-			await ETTask.CompletedTask;
+            UILobbyComponent.ChatEvent?.Invoke("world",cs);
+            await ETTask.CompletedTask;
 		}
 	}
 }
